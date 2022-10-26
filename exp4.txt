@@ -291,7 +291,23 @@ mysql> select * from language
 
 mysql> 
 
-
+\\5 create and exec index
+query
+mysql> CREATE INDEX inbook ON  book_issue(member_id,book_id);
+Query OK, 0 rows affected (0.34 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+output
+mysql> show index from book_issue
+    -> ;
++------------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| Table      | Non_unique | Key_name | Seq_in_index | Column_name | Collation | Cardinality | Sub_part | Packed | Null | Index_type | Comment | Index_comment |
++------------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+| book_issue |          0 | PRIMARY  |            1 | issue_id    | A         |           0 |     NULL | NULL   |      | BTREE      |         |               |
+| book_issue |          1 | c5       |            1 | book_id     | A         |           0 |     NULL | NULL   | YES  | BTREE      |         |               |
+| book_issue |          1 | inbook   |            1 | member_id   | A         |           0 |     NULL | NULL   | YES  | BTREE      |         |               |
+| book_issue |          1 | inbook   |            2 | book_id     | A         |           0 |     NULL | NULL   | YES  | BTREE      |         |               |
++------------+------------+----------+--------------+-------------+-----------+-------------+----------+--------+------+------------+---------+---------------+
+4 rows in set (0.00 sec)
 
 
 
