@@ -1,0 +1,54 @@
+a. Get the number of books written by a given author(doubt in answer)
+
+mysql> select count(book_id) from book,author where book.book_id=author_id AND author.name='nibin';
++----------------+
+| count(book_id) |
++----------------+
+|              1 |
++----------------+
+1 row in set (0.00 sec)
+
+mysql> select count(book_id) from book,author where book.book_id=author_id AND author.name='vrk';
++----------------+
+| count(book_id) |
++----------------+
+|              1 |
++----------------+
+1 row in set (0.00 sec)
+b. Get the list of publishers and the number of books published by each publisher
+
+mysql> select publisher.name,count(book_id) from book,publisher where book.published_id=publisher.publisher_id GROUP BY book.published_id ;
++------+----------------+
+| name | count(book_id) |
++------+----------------+
+| up   |              2 |
+| owl  |              2 |
+| ok   |              1 |
++------+----------------+
+3 rows in set (0.02 sec)
+
+c. Get the names of authors who jointly wrote more than one book.
+
+d. Get the list of books that are issued but not returned
+mysql> select book.title from book,book_return where book_return.actual_date_of_return = "1111-11-11";
++--------+
+| title  |
++--------+
+| java   |
+| python |
+| c      |
+| cpp    |
+| ruby   |
++--------+
+5 rows in set (0.00 sec)
+e. Get the list of students who reads only ‘Malayalam’ books
+
+
+
+
+
+
+
+
+
+

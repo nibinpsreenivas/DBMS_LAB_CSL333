@@ -1,0 +1,10 @@
+Write SQLQuery to retrieve the following information
+a. Get the number of books written by a given author
+b. Get the list of publishers and the number of books published by each publisher
+c. Get the names of authors who jointly wrote more than one book.
+d. Get the list of books that are issued but not returned
+e. Get the list of students who reads only ‘Malayalam’ books
+f. Get the total fine collected for the current month and current quarter
+g. Get the list of students who have overdue (not returned the books even on due date)
+h. Calculate the fine (as of today) to be collected from each overdue book.
+i. Members who joined after Jan 1 2021 but has not take
