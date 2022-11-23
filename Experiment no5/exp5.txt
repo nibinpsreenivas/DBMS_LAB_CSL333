@@ -1,0 +1,60 @@
+a. Get the number of books written by a given author(doubt in answer)
+
+mysql> select count(*) from book_author,author where book_author.author_id=author.author_id AND author.name='vrk'; 
++----------+
+| count(*) |
++----------+
+|        3 |
++----------+
+1 row in set (0.00 sec)
+
+b. Get the list of publishers and the number of books published by each publisher
+ 
+mysql> select publisher.name,count(book_id) from book,publisher where book.published_id=publisher.publisher_id GROUP BY book.published_id ;
++--------+----------------+
+| name   | count(book_id) |
++--------+----------------+
+| nibin  |              3 |
+| bibin  |              1 |
+| sibin  |              1 |
+| akash  |              1 |
+| ashwin |              1 |
++--------+----------------+
+5 rows in set (0.00 sec)
+
+ 
+c. Get the names of authors who jointly wrote more than one book.
+
+mysql> select author.name from (select author_id from(select author_id,count(book_author.book_id)as count from book_author group by book_author.author_id)as T1 where count >1)as T2,author where author.author_id=T2.author_id;
++------+
+| name |
++------+
+| vrk  |
+| srk  |
++------+
+2 rows in set (0.00 sec)
+
+d. Get the list of books that are issued but not returned
+
+mysql> select title from book,book_issue,book_return where book.book_id =(select book_id from book_issue where  book_issue.issue_id= (select issue_id from book_return where book_return.actual_date_of_return="1111-11-11"))group by book.book_id;
++--------+
+| title  |
++--------+
+| python |
++--------+
+
+e. Get the list of students who reads only ‘Malayalam’ books
+
+  mysql> select member.name from member,book_issue,book,language where member.member_id=book_issue.member_id and book_issue.book_id=book.book_id and book.language_id=language.lang_id and language.name="malayalam";
++--------+
+| name   |
++--------+
+| ashwin |
++--------+
+1 row in set (0.00 sec)
+
+
+
+
+
+
