@@ -1,34 +1,13 @@
-//1 demo select * from book using stored procedure
 
-mysql> DELIMITER &&  
-mysql> CREATE PROCEDURE allb()   BEGIN       SELECT * FROM book; END &&
-Query OK, 0 rows affected (0.00 sec)
 
-mysql> CALL allb()
-    -> &&
-+---------+--------+-------------+-------+--------------+----------------+--------+--------+
-| book_id | title  | language_id | mrp   | published_id | published_date | volume | status |
-+---------+--------+-------------+-------+--------------+----------------+--------+--------+
-|       1 | java   |           1 |  2999 |            1 | 2022-02-01     |      1 | avil   |
-|       2 | python |           2 |   999 |            2 | 2022-02-01     |      2 | avil   |
-|       3 | r      |           2 |   999 |            3 | 2021-02-01     |      3 | avil   |
-|       4 | ruby   |           4 | 12999 |            4 | 2021-02-01     |      4 | avil   |
-|       5 | data   |           5 |  2999 |            5 | 2011-02-01     |      5 | avil   |
-|       6 | cs     |           2 |  2999 |            1 | 2022-02-01     |      2 | avil   |
-|       7 | css    |           3 |  2999 |            1 | 2022-02-01     |      3 | avil   |
-+---------+--------+-------------+-------+--------------+----------------+--------+--------+
-7 rows in set (0.02 sec)
-
-Query OK, 0 rows affected (0.02 sec)
-
-//2 create a 
+//1 create a procedure book_return that should insert an entry into the book retrun table and also update the status in book_issue table as 'return'
 
 
 mysql> CREATE PROCEDURE book_return()   BEGIN    insert into book_return values(4,"2023-07-21",0,0); update book_issue set status='return' where issue_id=4; END &&
 Query OK, 0 rows affected (0.01 sec)
 
 
-
+//before output
 +----------+-----------------------+-----------+----------+
 | issue_id | actual_date_of_return | late_days | late_fee |
 +----------+-----------------------+-----------+----------+
@@ -48,7 +27,7 @@ Query OK, 0 rows affected (0.01 sec)
 |        4 | 2021-12-11   |       2 |         2 | 2023-07-21              | NULL   |
 +----------+--------------+---------+-----------+-------------------------+--------+
 
-
+//after output
 mysql> call book_return();
     -> &&
 Query OK, 1 row affected (0.11 sec)
@@ -75,10 +54,10 @@ mysql> select * from book_return;
 |        4 | 2023-07-21            |         0 |        0 |
 +----------+-----------------------+-----------+----------+
 4 rows in set (0.01 sec)
- 
- CREATE PROCEDURE book_return(IN var1 INT,IN var2 date,IN var3 int,IN var4 INT)   BEGIN    insert into book_return values(var1,var2,var3,var4); update book_issue set status='return' where issue_id= var1 END &&
+ //using IN (PASSING VALUES)
+. CREATE PROCEDURE book_return(IN var1 INT,IN var2 date,IN var3 int,IN var4 INT)   BEGIN    insert into book_return values(var1,var2,var3,var4); update book_issue set status='return' where issue_id= var1 END &&
 
-  call book_return(5,"2021-01-20",7,7);
+ . call book_return(5,"2021-01-20",7,7);
     -> &&
 
 
