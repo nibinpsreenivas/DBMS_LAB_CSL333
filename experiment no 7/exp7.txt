@@ -1,0 +1,53 @@
+//1 create
+
+
+
+ CREATE PROCEDURE modify1(IN var1 INT,IN book_id INT,IN title varchar(20),IN lang_id INT,IN mrp INT,IN pub_id INT,IN dat date,IN volume INT,IN status varchar(20),IN book_id_1 INT,IN book_id_2 INT) BEGIN if var1=1 then insert into book values(book_id,title,lang_id,mrp,pub_id,dat,volume,status);elseif var1=2 then update book set status= 'return' where book.book_id= book_id_1;elseif var1=3 then delete from book where book.book_id=book_id_2;end if;END &&
+
+
+//before output;
+ 
+
+mysql> select * from book;
+    -> &&
++---------+-------+-------------+------+--------------+----------------+--------+--------+
+| book_id | title | language_id | mrp  | published_id | published_date | volume | status |
++---------+-------+-------------+------+--------------+----------------+--------+--------+
+|       1 | java  |           1 | 2999 |            1 | 2022-02-01     |      1 | avil   |
+|       2 | c     |           2 | 2999 |            2 | 2022-03-01     |      2 | avil   |
++---------+-------+-------------+------+--------------+----------------+--------+--------+
+2 rows in set (0.00 sec)
+
+mysql> call modify(1,3,'c++',3,999,3,"2022-01-20",3,'avail',3,3);
+    -> &&
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from book;
+    -> &&
+//output after 
++---------+-------+-------------+------+--------------+----------------+--------+--------+
+| book_id | title | language_id | mrp  | published_id | published_date | volume | status |
++---------+-------+-------------+------+--------------+----------------+--------+--------+
+|       1 | java  |           1 | 2999 |            1 | 2022-02-01     |      1 | avil   |
+|       2 | c     |           2 | 2999 |            2 | 2022-03-01     |      2 | avil   |
+|       3 | c++   |           3 |  999 |            3 | 2022-01-20     |      3 | avail  |
++---------+-------+-------------+------+--------------+----------------+--------+--------+
+3 rows in set (0.00 sec)
+mysql> call modify(1,3,'c++',3,999,3,"2022-01-20",3,'avail',3,3);
+    -> &&
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from book;
+    -> &&
++---------+-------+-------------+------+--------------+----------------+--------+--------+
+| book_id | title | language_id | mrp  | published_id | published_date | volume | status |
++---------+-------+-------------+------+--------------+----------------+--------+--------+
+|       1 | java  |           1 | 2999 |            1 | 2022-02-01     |      1 | avil   |
+|       2 | c     |           2 | 2999 |            2 | 2022-03-01     |      2 | avil   |
+|       3 | c++   |           3 |  999 |            3 | 2022-01-20     |      3 | avail  |
++---------+-------+-------------+------+--------------+----------------+--------+--------+
+3 rows in set (0.00 sec)
+
+
+
+
